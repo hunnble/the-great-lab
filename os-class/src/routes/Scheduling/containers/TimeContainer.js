@@ -1,14 +1,17 @@
 import { connect } from 'react-redux'
-import { addTime, setTimeToZero } from '../modules/time'
+import { resetStates, addTime, startScheduling, pauseScheduling } from '../modules/control'
 import Time from '../components/Time'
 
 const mapStateToProps = (state) => ({
-  time: state.scheduling.time.time
+  time: state.scheduling.control.time,
+  delay: state.scheduling.control.delay
 })
 
 const mapDispatchToProps = {
+  resetStates,
   addTime,
-  setTimeToZero
+  startScheduling,
+  pauseScheduling
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Time)

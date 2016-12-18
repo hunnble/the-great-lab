@@ -3,6 +3,7 @@ import Jcb from './Jcb'
 import AlgorithmForm from '../containers/AlgorithmFormContainer'
 import JcbForm from '../containers/JcbFormContainer'
 import Time from '../containers/TimeContainer'
+import Processes from '../containers/ProcessesContainer'
 
 export const Scheduling = (props) => (
   <div>
@@ -37,38 +38,40 @@ export const Scheduling = (props) => (
         </table>
       </div>
       <div className='col-xs-12 col-md-4'>
-        <JcbForm />        
+        <JcbForm />
       </div>
     </div>
     <div className='row'>
       <div className='col-xs-12 col-md-4'>
         <h3>Choose scheduling algorithms</h3>
-        <AlgorithmForm />        
+        <AlgorithmForm />
       </div>
       <section className='col-xs-12 col-md-8'>
         <header>
           <h3>jobs</h3>
         </header>
-        <ul>
-          {
-            props.jcbs.map((jcb, index) => (
-              <Jcb key={'jcb' + index} jcb={jcb} index={index} removeJcb={props.removeJcb} />
-            ))
-          }
-        </ul>
+        <table className='table table-condensed'>
+          <thead>
+            <tr>
+              <td>name</td>
+              <td>arrive time</td>
+              <td>service time</td>
+              <td>start address</td>
+              <td>memory</td>
+              <td>tap drive number</td>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              props.jcbs.map((jcb, index) => (
+                <Jcb key={'jcb' + index} jcb={jcb} index={index} />
+              ))
+            }
+          </tbody>
+        </table>
       </section>
       <section className='col-xs-12 col-md-6'>
-        <header>
-          <h3>backup queue</h3>
-        </header>
-        <ul>
-          {
-            props.jcbs.map((jcb, index) => (
-              jcb.state === 1 &&
-              <Jcb key={'jcb' + index} jcb={jcb} index={index} removeJcb={props.removeJcb} />
-            ))
-          }
-        </ul>
+        <Processes />
       </section>
       <section className='col-xs-12 col-md-6'>
         <header>

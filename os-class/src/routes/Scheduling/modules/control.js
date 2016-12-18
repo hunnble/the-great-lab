@@ -1,8 +1,13 @@
 import Job from '../../../utils/job.js'
 import { jcbFormConfig } from '../configs/form.config'
 import { jobSchedulingAlgorithms, processSchedulingAlgorithms } from '../../../utils/algorithms'
+import { maxTime, timeStep } from '../configs/time.config'
 import { bindRedux } from 'redux-form-utils'
 
+export const ADD_TIME = 'ADD_TIME'
+export const RESET = 'RESET'
+export const START_SCHEDULING = 'START_SCHEDULING'
+export const PAUSE_SCHEDULING = 'PAUSE_SCHEDULING'
 export const ADD_JCB = 'ADD_JCB'
 export const REMOVE_JCB = 'REMOVE_JCB'
 export const CHANGE_ALGORITHM = 'CHANGE_ALGORITHM'
@@ -10,6 +15,31 @@ export const CHANGE_ALGORITHM = 'CHANGE_ALGORITHM'
 // ------------------------------------
 // Actions
 // ------------------------------------
+export function addTime () {
+  return {
+    type: ADD_TIME
+  }
+}
+
+export function resetStates () {
+  return {
+    type: RESET
+  }
+}
+
+export function startScheduling (timer) {
+  return {
+    type: START_SCHEDULING,
+    timer
+  }
+}
+
+export function pauseScheduling () {
+  return {
+    type: PAUSE_SCHEDULING
+  }
+}
+
 export function changeAlgorithm (index, key) {
   return {
     type: CHANGE_ALGORITHM,
@@ -96,6 +126,9 @@ const initialState = {
       priority: 2
     })
   ],
+  time: 0,
+  delay: 200,
+  timer: null,
   processes: [],
   tapeDriveNum: 4,
   memory: 100,
@@ -105,6 +138,40 @@ const initialState = {
 
 export default function schedulingReducer (state = initialState, action) {
   switch (action.type) {
+    case ADD_TIME:
+      let newTime = state.time + timeStep
+      if (newTime >= maxTime) {
+        newTime -= maxTime
+      }
+      return {
+        ...state,
+        time: newTime
+      }
+    case RESET:
+      let newJcbs = state.jcbs.concat()
+      newJcbs = newJcbs.map((jcb) => {
+        jcb.state = 0
+        jcb.startTime = null
+        jcb.wordedTime = 0
+        return jcb
+      })
+      return {
+        ...state,
+        time: 0,
+        jcbs: newJcbs,
+        processes: []
+      }
+    case START_SCHEDULING:
+      return {
+        ...state,
+        timer: action.timer
+      }
+    case PAUSE_SCHEDULING:
+      clearInterval(state.timer)
+      return {
+        ...state,
+        timer: null
+      }
     case CHANGE_ALGORITHM:
       let newAlgorithms = Object.assign({}, state.algorithms)
       for (let i in newAlgorithms) {

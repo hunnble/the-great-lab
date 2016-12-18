@@ -11,7 +11,7 @@ let Job = function (config) {
     name: config.name,
     arriveTime: parseInt(config.arriveTime, 10),
     serviceTime: parseInt(config.serviceTime, 10),
-    startTime: 0,
+    startTime: null,
     workedTime: 0,
     state: 0,
     startAddress: parseInt(config.startAddress, 10),
