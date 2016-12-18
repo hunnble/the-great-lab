@@ -33,10 +33,13 @@
 *.su
 
 .vscode/
-node_modules/
-.DS_Store
-.DS_Store?
-bundle.js
-vendor.js
-common.js
+.DS_STORE
+*.log
+
+node_modules
+
+dist
+coverage
+
+.idea/
 npm-debug.log

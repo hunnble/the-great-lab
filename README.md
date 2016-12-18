@@ -1,2 +1,2 @@
 # the-great-lab
-:fire: An amazing laborabory
+:fire: An amazing laboratory

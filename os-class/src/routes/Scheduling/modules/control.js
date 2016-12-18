@@ -1,5 +1,6 @@
 import Job from '../../../utils/job.js'
 import { jcbFormConfig } from '../configs/form.config'
+import { jobSchedulingAlgorithms, processSchedulingAlgorithms } from '../../../utils/algorithms'
 import { bindRedux } from 'redux-form-utils'
 
 export const ADD_JCB = 'ADD_JCB'
@@ -95,7 +96,9 @@ const initialState = {
       priority: 2
     })
   ],
+  processes: [],
   tapeDriveNum: 4,
+  memory: 100,
   algorithms,
   ...jcbFormState
 }
@@ -115,14 +118,21 @@ export default function schedulingReducer (state = initialState, action) {
         algorithms: newAlgorithms
       }
     case ADD_JCB:
+      let newForm = {}
       for (var key in state.form) {
         if (state.form[key].value === '') {
           return state
+        } else {
+          newForm[key] = state.form[key].value
         }
       }
       return {
         ...state,
-        jcbs: state.jcbs.concat(new Job(state.form))
+        jcbs: state.jcbs
+          .concat(new Job(newForm))
+          .sort((jcb1, jcb2) => (
+            jcb1.arriveTime - jcb2.arriveTime
+          ))
       }
     case REMOVE_JCB:
       return {

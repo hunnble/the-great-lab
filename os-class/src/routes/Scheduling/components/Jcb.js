@@ -11,9 +11,9 @@ export const Jcb = (props) => (
     {
       props.removeJcb &&
       <td>
-        <button type='button' className='btn btn-sm' onClick={() => {
+        <button type='button' className='btn btn-sm btn-danger' onClick={() => {
           props.removeJcb(props.index)
-        }} />
+        }}>×</button>
       </td>
     }
   </tr>

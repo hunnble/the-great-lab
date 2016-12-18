@@ -13,9 +13,9 @@ export const Scheduling = (props) => (
           JCB(Job Control Block) contains infomations of a job for job control computing.
         </p>
       </div>
-      <div className='col-xs-12 col-md-6'>
-        <AlgorithmForm />
-        <table className='table table-bordered'>
+      <div className='col-xs-12 col-md-8'>
+        <h3>Modify jobs</h3>
+        <table className='table table-condensed'>
           <thead>
             <tr>
               <td>name</td>
@@ -35,11 +35,19 @@ export const Scheduling = (props) => (
             }
           </tbody>
         </table>
-        <JcbForm />
       </div>
-      <section className='col-xs-12 col-md-6'>
+      <div className='col-xs-12 col-md-4'>
+        <JcbForm />        
+      </div>
+    </div>
+    <div className='row'>
+      <div className='col-xs-12 col-md-4'>
+        <h3>Choose scheduling algorithms</h3>
+        <AlgorithmForm />        
+      </div>
+      <section className='col-xs-12 col-md-8'>
         <header>
-          jobs
+          <h3>jobs</h3>
         </header>
         <ul>
           {
@@ -51,7 +59,7 @@ export const Scheduling = (props) => (
       </section>
       <section className='col-xs-12 col-md-6'>
         <header>
-          backup queue
+          <h3>backup queue</h3>
         </header>
         <ul>
           {
@@ -64,7 +72,7 @@ export const Scheduling = (props) => (
       </section>
       <section className='col-xs-12 col-md-6'>
         <header>
-          memory
+          <h3>memory</h3>
         </header>
         <ul>
           {
