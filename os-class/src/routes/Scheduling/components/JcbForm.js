@@ -17,17 +17,17 @@ export class JcbForm extends React.Component {
       tapeDriveNum,
       priority
     } = this.props.fields
-    const { addJcb, clearAll } = this.props
+    const { clearAll } = this.props
     return (
       <form className='text-left'>
         <h3 className='text-center'>create new job</h3>
         <div className='form-group'>
           <label>name</label>
           <input
-          type='text'
-          className='form-control'
-          name='name'
-          {...name} />
+            type='text'
+            className='form-control'
+            name='name'
+            {...name} />
         </div>
         <div className='form-group'>
           <label>arrive time</label>

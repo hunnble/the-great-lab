@@ -7,19 +7,21 @@ import Processes from '../containers/ProcessesContainer'
 
 export const Scheduling = (props) => (
   <div>
-    <Time />  
     <div className='row'>
       <div className='col-xs-12 col-md-4'>
-        <JcbForm />
+        <Time />
         <h3>Choose scheduling algorithms</h3>
         <AlgorithmForm />
+        {
+          !props.timer && <JcbForm />
+        }
       </div>
       <div className='col-xs-12 col-md-8'>
         <section>
           <header>
             <h3>Backup Queue</h3>
           </header>
-          <table className='table table-condensed'>
+          <table className='table table-condensed table-bordered'>
             <thead>
               <tr>
                 <td>name</td>
@@ -54,7 +56,7 @@ export const Scheduling = (props) => (
           <header>
             <h3>Finished</h3>
           </header>
-          <table className='table table-condensed'>
+          <table className='table table-condensed table-bordered'>
             <thead>
               <tr>
                 <td>name</td>

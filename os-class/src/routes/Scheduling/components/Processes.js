@@ -4,7 +4,7 @@ import Jcb from './Jcb'
 export const Processes = (props) => (
   <div>
     <h3>Processes</h3>
-    <table className='table table-condensed'>
+    <table className='table table-condensed table-bordered'>
       <thead>
         <tr>
           <td>name</td>

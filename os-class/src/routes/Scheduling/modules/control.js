@@ -1,7 +1,7 @@
 import Job from '../../../utils/job.js'
 import { jcbFormConfig } from '../configs/form.config'
 import { jobSchedulingAlgorithms, processSchedulingAlgorithms } from '../../../utils/algorithms'
-import { maxTime, timeStep } from '../configs/time.config'
+import { timeStep } from '../configs/time.config'
 import { bindRedux } from 'redux-form-utils'
 
 export const ADD_TIME = 'ADD_TIME'
@@ -149,9 +149,6 @@ export default function schedulingReducer (state = initialState, action) {
   switch (action.type) {
     case ADD_TIME:
       let newTime = state.time + timeStep
-      // if (newTime >= maxTime) {
-      //   newTime -= maxTime
-      // }
       let jcbs = state.jcbs.concat()
       let processes = state.processes.concat()
       let memory = state.memory + 0

@@ -3,8 +3,8 @@ import { timeStringify } from '../../../utils/timeUtils'
 
 export const Time = (props) => (
   <div>
-    <p className='lead'>Time: {timeStringify(props.time)}</p>
-    <p className='lead'>Total Memory: {props.memory}</p>
+    <p className='lead text-info'>Time: {timeStringify(props.time)}</p>
+    <p className='lead text-info'>Total Memory: {props.memory}</p>
     <button type='button' className='btn btn-default' onClick={() => {
       const timer = setInterval(props.addTime, props.delay || 200)
       props.startScheduling(timer)
