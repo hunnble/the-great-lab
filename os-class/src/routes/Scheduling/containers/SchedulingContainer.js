@@ -3,7 +3,8 @@ import { addJcb, removeJcb } from '../modules/control'
 import Scheduling from '../components/Scheduling'
 
 const mapStateToProps = (state) => ({
-  jcbs: state.scheduling.control.jcbs
+  jcbs: state.scheduling.control.jcbs,
+  timer: state.scheduling.control.timer
 })
 
 const mapDispatchToProps = {

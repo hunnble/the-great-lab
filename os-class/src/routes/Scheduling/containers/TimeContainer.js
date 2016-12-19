@@ -4,6 +4,7 @@ import Time from '../components/Time'
 
 const mapStateToProps = (state) => ({
   time: state.scheduling.control.time,
+  memory: state.scheduling.control.memory,
   delay: state.scheduling.control.delay
 })
 

@@ -100,7 +100,7 @@ const initialState = {
     }),
     new Job({
       name: 'JOB2',
-      arriveTime: 40,
+      arriveTime: 0,
       serviceTime: 40,
       startAddress: 3,
       memory: 3,
@@ -109,6 +109,15 @@ const initialState = {
     }),
     new Job({
       name: 'JOB3',
+      arriveTime: 40,
+      serviceTime: 40,
+      startAddress: 3,
+      memory: 3,
+      tapeDriveNum: 1,
+      priority: 3
+    }),
+    new Job({
+      name: 'JOB4',
       arriveTime: 60,
       serviceTime: 10,
       startAddress: 0,
@@ -117,9 +126,9 @@ const initialState = {
       priority: 2
     }),
     new Job({
-      name: 'JOB4',
-      arriveTime: 100,
-      serviceTime: 20,
+      name: 'JOB5',
+      arriveTime: 60,
+      serviceTime: 30,
       startAddress: 1,
       memory: 2,
       tapeDriveNum: 1,
@@ -131,7 +140,7 @@ const initialState = {
   timer: null,
   processes: [],
   tapeDriveNum: 4,
-  memory: 100,
+  memory: 4,
   algorithms,
   ...jcbFormState
 }
@@ -140,13 +149,19 @@ export default function schedulingReducer (state = initialState, action) {
   switch (action.type) {
     case ADD_TIME:
       let newTime = state.time + timeStep
-      if (newTime >= maxTime) {
-        newTime -= maxTime
-      }
+      // if (newTime >= maxTime) {
+      //   newTime -= maxTime
+      // }
       let jcbs = state.jcbs.concat()
       let processes = state.processes.concat()
       let memory = state.memory + 0
       let usefulJcbIndexes = jobSchedulingAlgorithms.getUsefulJcbIndexes(jcbs, processes, memory, newTime)
+      if (usefulJcbIndexes.length === 0 && processes.length === 0) {
+        return {
+          ...state,
+          time: newTime
+        }
+      }
       let schedulingJcbIndex = -1
       while (usefulJcbIndexes.length > 0) {
         switch (jobAlgorithm.items[state.algorithms.jobAlgorithm.index]) {
@@ -186,7 +201,7 @@ export default function schedulingReducer (state = initialState, action) {
       }
       let workingProcess = processes[0]
       if (workingProcess.workedTime === 0) {
-        workingProcess.startTime = newTime
+        workingProcess.startTime = newTime - 1
       }
       workingProcess.workedTime += 1
       if (workingProcess.workedTime >= workingProcess.serviceTime) {

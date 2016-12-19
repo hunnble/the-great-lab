@@ -3,7 +3,8 @@ import { timeStringify } from '../../../utils/timeUtils'
 
 export const Time = (props) => (
   <div>
-    <p className='lead'>time: {timeStringify(props.time)}</p>
+    <p className='lead'>Time: {timeStringify(props.time)}</p>
+    <p className='lead'>Total Memory: {props.memory}</p>
     <button type='button' className='btn btn-default' onClick={() => {
       const timer = setInterval(props.addTime, props.delay || 200)
       props.startScheduling(timer)
@@ -18,6 +19,7 @@ export const Time = (props) => (
 
 Time.propTypes = {
   time: React.PropTypes.number.isRequired,
+  memory: React.PropTypes.number.isRequired,
   delay: React.PropTypes.number,
   resetStates: React.PropTypes.func.isRequired,
   addTime: React.PropTypes.func.isRequired,
