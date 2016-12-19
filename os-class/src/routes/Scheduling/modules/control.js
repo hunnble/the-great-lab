@@ -74,7 +74,7 @@ const jobAlgorithm = {
 const processAlgorithm = {
   key: 'processAlgorithm',
   index: 0,
-  items: ['FIFO', 'RR', 'SPN']
+  items: ['FCFS', 'RR', 'SPN']
 }
 const memoryAlgorithm = {
   key: 'memoryAlgorithm',
@@ -143,16 +143,69 @@ export default function schedulingReducer (state = initialState, action) {
       if (newTime >= maxTime) {
         newTime -= maxTime
       }
+      let jcbs = state.jcbs.concat()
+      let processes = state.processes.concat()
+      let memory = state.memory + 0
+      let usefulJcbIndexes = jobSchedulingAlgorithms.getUsefulJcbIndexes(jcbs, processes, memory, newTime)
+      let schedulingJcbIndex = -1
+      while (usefulJcbIndexes.length > 0) {
+        switch (jobAlgorithm.items[state.algorithms.jobAlgorithm.index]) {
+          case 'FCFS':
+            schedulingJcbIndex = jobSchedulingAlgorithms.fcfs(jcbs, usefulJcbIndexes, newTime)
+            break
+          case 'SJF':
+            schedulingJcbIndex = jobSchedulingAlgorithms.sjf(jcbs, usefulJcbIndexes, newTime)
+            break
+          case 'PSA':
+            schedulingJcbIndex = jobSchedulingAlgorithms.psa(jcbs, usefulJcbIndexes, newTime)
+            break
+          case 'HRRN':
+            schedulingJcbIndex = jobSchedulingAlgorithms.hrrn(jcbs, usefulJcbIndexes, newTime)
+            break
+          default:
+            schedulingJcbIndex = -1
+        }
+        if (schedulingJcbIndex >= 0) {
+          jcbs[schedulingJcbIndex].state = 1
+          processes.push(jcbs[schedulingJcbIndex])
+        }
+        usefulJcbIndexes = jobSchedulingAlgorithms.getUsefulJcbIndexes(jcbs, processes, memory, newTime)
+      }
+      switch (processAlgorithm.items[state.algorithms.processAlgorithm.index]) {
+        case 'FCFS':
+          processes = processSchedulingAlgorithms.fcfs(processes)
+          break
+        case 'RR':
+          processes = processSchedulingAlgorithms.rr(processes, 1, newTime)
+          break
+        case 'SPN':
+          processes = processSchedulingAlgorithms.spn(processes)
+          break
+        default:
+          break
+      }
+      let workingProcess = processes[0]
+      if (workingProcess.workedTime === 0) {
+        workingProcess.startTime = newTime
+      }
+      workingProcess.workedTime += 1
+      if (workingProcess.workedTime >= workingProcess.serviceTime) {
+        workingProcess.state = 2
+        processes.shift()
+      }
       return {
         ...state,
-        time: newTime
+        time: newTime,
+        memory,
+        processes,
+        jcbs
       }
     case RESET:
-      let newJcbs = state.jcbs.concat()
+      let newJcbs = [...state.jcbs]
       newJcbs = newJcbs.map((jcb) => {
         jcb.state = 0
         jcb.startTime = null
-        jcb.wordedTime = 0
+        jcb.workedTime = 0
         return jcb
       })
       return {

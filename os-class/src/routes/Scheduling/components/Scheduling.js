@@ -22,7 +22,8 @@ export const Scheduling = (props) => (
               <td>name</td>
               <td>arrive time</td>
               <td>service time</td>
-              <td>start address</td>
+              <td>start Time</td>
+              <td>worked Time</td>
               <td>memory</td>
               <td>tap drive number</td>
               <td>remove job</td>
@@ -56,7 +57,8 @@ export const Scheduling = (props) => (
               <td>name</td>
               <td>arrive time</td>
               <td>service time</td>
-              <td>start address</td>
+              <td>start Time</td>
+              <td>worked Time</td>
               <td>memory</td>
               <td>tap drive number</td>
             </tr>

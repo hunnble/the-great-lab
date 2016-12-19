@@ -4,7 +4,8 @@ import AlgorithmForm from '../components/AlgorithmForm'
 
 const mapStateToProps = (state) => ({
   algorithms: state.scheduling.control.algorithms,
-  chosedAlgorithmIndexs: state.scheduling.control.chosedAlgorithmIndexs
+  chosedAlgorithmIndexs: state.scheduling.control.chosedAlgorithmIndexs,
+  timer: state.scheduling.control.timer
 })
 
 const mapDispatchToProps = {

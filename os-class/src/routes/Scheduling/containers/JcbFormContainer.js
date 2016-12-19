@@ -6,7 +6,9 @@ const mapStateToProps = (state) => ({
   form: state.scheduling.control.form,
   fields: state.scheduling.control.fields,
   clear: state.scheduling.control.clear,
-  clearAll: state.scheduling.control.clearAll
+  clearAll: state.scheduling.control.clearAll,
+  timer: state.scheduling.control.timer
+
 })
 
 const mapDispatchToProps = {

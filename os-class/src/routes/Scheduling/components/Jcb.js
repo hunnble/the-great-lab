@@ -1,11 +1,13 @@
 import React from 'react'
+import { timeStringify } from '../../../utils/timeUtils'
 
 export const Jcb = (props) => (
   <tr key={'jcb' + props.index}>
     <td>{props.jcb.name}</td>
-    <td>{props.jcb.arriveTime}</td>
-    <td>{props.jcb.serviceTime}</td>
-    <td>{props.jcb.startAddress}</td>
+    <td>{timeStringify(props.jcb.arriveTime)}</td>
+    <td>{timeStringify(props.jcb.serviceTime)}</td>
+    <td>{timeStringify(props.jcb.startTime)}</td>
+    <td>{timeStringify(props.jcb.workedTime)}</td>
     <td>{props.jcb.memory}</td>
     <td>{props.jcb.tapeDriveNum}</td>
     {
