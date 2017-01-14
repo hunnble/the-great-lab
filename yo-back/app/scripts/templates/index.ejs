@@ -1,0 +1,42 @@
+<div class="container text-center">
+  <h3>/-o~~o-/</h3>
+
+  <div class="row">
+    <div class="controller col-md-12 form-inline">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <input type="text" id="input" class="form-control">
+          <button class="add btn btn-default">新增任务</button>
+          <div class="tabs btn-group">
+            <button class="btn btn-default filter-all <%= filterState === 0 && 'active' %>">所有任务</button>
+            <button class="btn btn-default filter-done <%= filterState === 1 && 'active' %>">已完成的任务</button>
+            <button class="btn btn-default filter-undone <%= filterState === 2 && 'active' %>">未完成的任务</button>
+          </div>
+        </div>
+        <ul class="list-group text-left">
+          <% tasks.forEach(function(task, index) { %>
+            <% if (filterState === 1 && task.state === 0 || filterState === 2 && task.state === 1) {} else { %>
+              <li class="task-group list-group-item" data-index="<%= index %>">
+                <% if (task.state === 0) { %>
+                  <span class="task-title text-sm text-danger">未完成</span>
+                <% } else { %>
+                  <span class="task-title text-sm text-info">已完成</span>
+                <% } %>
+                <span class="task-title"><%- task.title %></span>
+                <div class="btn-group pull-right">
+                  <% if (task.state === 0) { %>
+                    <button class="done btn btn-default btn-sm">Do</button>
+                  <% } else { %>
+                    <button class="undone btn btn-default btn-sm">Undo</button>
+                  <% } %>
+                  <button class="remove btn btn-default btn-sm">❌</button>
+                </div>
+              </li>
+            <% } %>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
